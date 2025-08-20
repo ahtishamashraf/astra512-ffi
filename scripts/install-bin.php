@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 // ======= CONFIG: set your C repo owner/name =======
-const GH_OWNER = 'YOUR_GH_USER_OR_ORG';
-const GH_REPO  = 'YOUR_C_REPO'; // e.g. "astra512"
+const GH_OWNER = 'ahtishamashraf';
+const GH_REPO  = 'astra512-ffi'; // e.g. "astra512"
 // ================================================
 
 function targetPath(): array {

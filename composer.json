@@ -1,5 +1,5 @@
 {
-  "name": "astra512/astra512-ffi",
+  "name": "ahtishamashraf/astra512-ffi",
   "description": "PHP FFI bindings for ASTRA-512 (research SIV-style AEAD) with key management helpers.",
   "type": "library",
   "license": "MIT",
@@ -24,7 +24,11 @@
     "phpunit/phpunit": "^10.5"
   },
   "scripts": {
-    "post-install-cmd": ["@php scripts/install-bin.php"],
-    "post-update-cmd":  ["@php scripts/install-bin.php"]
+    "post-install-cmd": [
+      "@php scripts/install-bin.php"
+    ],
+    "post-update-cmd": [
+      "@php scripts/install-bin.php"
+    ]
   }
 }

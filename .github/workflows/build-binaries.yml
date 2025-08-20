@@ -9,16 +9,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Build .so
+      - name: Build .so (Linux)
         run: |
-          mkdir -p build
-          cc -O2 -fPIC -Iinclude -c core/c/astra512.c -o build/astra512.o
-          cc -shared -o build/libastra512.so build/astra512.o
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
+          mkdir -p native/build
+          cc -O2 -fPIC -Inative/include -c native/core/c/astra512.c -o native/build/astra512.o
+          cc -shared -o native/build/libastra512.so native/build/astra512.o
+      - uses: actions/upload-artifact@v4
         with:
           name: libastra512-linux
-          path: build/libastra512.so
+          path: native/build/libastra512.so
 
   macos:
     runs-on: macos-latest
@@ -26,14 +25,13 @@ jobs:
       - uses: actions/checkout@v4
       - name: Build universal .dylib (arm64 + x86_64)
         run: |
-          mkdir -p build
-          clang -O2 -fPIC -arch x86_64 -arch arm64 -Iinclude -c core/c/astra512.c -o build/astra512.o
-          clang -dynamiclib -arch x86_64 -arch arm64 -o build/libastra512.dylib build/astra512.o
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
+          mkdir -p native/build
+          clang -O2 -fPIC -arch x86_64 -arch arm64 -Inative/include -c native/core/c/astra512.c -o native/build/astra512.o
+          clang -dynamiclib -arch x86_64 -arch arm64 -o native/build/libastra512.dylib native/build/astra512.o
+      - uses: actions/upload-artifact@v4
         with:
           name: libastra512-macos-universal
-          path: build/libastra512.dylib
+          path: native/build/libastra512.dylib
 
   windows:
     runs-on: windows-latest
@@ -47,17 +45,16 @@ jobs:
           EXPORTS
             astra512_encrypt
             astra512_decrypt
-          "@ | Out-File -Encoding ASCII astra512.def
-      - name: Build .dll
+          "@ | Out-File -Encoding ASCII native\astra512.def
+      - name: Build .dll (MSVC)
         shell: pwsh
         run: |
-          mkdir build
-          cl /O2 /LD /I include core\c\astra512.c /link /DEF:astra512.def /OUT:build\astra512.dll
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
+          mkdir native\build
+          cl /O2 /LD /I native\include native\core\c\astra512.c /link /DEF:native\astra512.def /OUT:native\build\astra512.dll
+      - uses: actions/upload-artifact@v4
         with:
           name: astra512-windows-x64
-          path: build/astra512.dll
+          path: native/build/astra512.dll
 
   release:
     if: startsWith(github.ref, 'refs/tags/')
