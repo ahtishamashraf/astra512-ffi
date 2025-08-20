@@ -1,5 +1,3 @@
-# yourvendor/astra512-ffi
-
 FFI bindings for **ASTRA-512** (research SIV-style AEAD) with **key management** and **password-based key derivation** helpers.
 
 > ⚠️ This is *research cryptography*. Do not use in production until independent review.
