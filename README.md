@@ -4,7 +4,7 @@ FFI bindings for **ASTRA-512** (research SIV-style AEAD) with **key management**
 
 ## Install
 ```bash
-composer require yourvendor/astra512-ffi
+composer require ahtishamashraf/astra512-ffi
 ```
 
 ## Native library
